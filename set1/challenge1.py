@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Convert hex to base64
 #
 # The string:
@@ -5,25 +6,24 @@
 #
 # Should produce:
 # SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t
+#
+# TODO Stop using strings for hex representation
 
 from base64 import b64encode
 from binascii import unhexlify
 
-HEX_STRING = ("49276d206b696c6c696e6720796f757220627261696e206c"
-              "696b65206120706f69736f6e6f7573206d757368726f6f6d")
+def hex_array(hex):
+    return [''.join(c) for c in zip(hex[0::2], hex[1::2])]
 
-hex_array = [''.join(c) for c in zip(HEX_STRING[0::2], HEX_STRING[1::2])]
+def hex_to_byte_array(hex):
+    byte_array = [unhexlify(c) for c in hex_array(hex)]
+    return byte_array
 
-decimal_array = [int(c, 16) for c in hex_array]
+if __name__ == "__main__":
+    HEX_STRING = ("49276d206b696c6c696e6720796f757220627261696e206c"
+                  "696b65206120706f69736f6e6f7573206d757368726f6f6d")
 
-character_array = [chr(int(c, 16)) for c in hex_array]
-
-byte_array = [unhexlify(c) for c in hex_array]
-
-base64_array = b64encode(b''.join(byte_array))
-
-print("hex:     ", hex_array)
-print("decimal: ", decimal_array)
-print("chr:     ", character_array)
-print("bytes:   ", byte_array)
-print("b64:     ", base64_array)
+    print("hex:     ", hex_array(HEX_STRING))
+    print("decimal: ", [int(c, 16) for c in hex_array(HEX_STRING)])
+    print("chr:     ", [chr(int(c, 16)) for c in hex_array(HEX_STRING)])
+    print("b64:     ", b64encode(b''.join(hex_to_byte_array(HEX_STRING))))
