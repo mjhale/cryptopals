@@ -3,12 +3,14 @@
 """Convert hex to base64
 
 The string:
-49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d
+49276d206b696c6c696e6720796f757220627261696e206c
+696b65206120706f69736f6e6f7573206d757368726f6f6d
 
 Should produce:
 SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t
 
-Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.
+Always operate on raw bytes, never on encoded strings.
+Only use hex and base64 for pretty-printing.
 """
 
 __author__ = 'michael@michaelhale.org (Michael Hale)'
@@ -18,7 +20,7 @@ HEX_LUT = '0123456789abcdef'
 
 def hex_to_dec(hex):
     """Converts a single hex value to decimal"""
-    if (len(hex) != 1):
+    if len(hex) != 1:
         return None
     return HEX_LUT.index(hex)
 
@@ -48,21 +50,33 @@ def dec_to_base64(dec):
 def bytes_to_base64(bytes):
     """Converts an array of bytes into a base64 string
 
+             1         2
+    123456789012345678901234
     010011010110000101101110 Bit pattern
     000000001111111122222222 8-bit position
     000000111111222222333333 6-bit position
     | 19 || 22 ||  5 || 46 | Index
 
     Output is padded to always be a multiple of four
+
+    @TODO: Apply padding to base64 string
     """
     base64 = ""
+    padding = ""
     # 24 is LCM of 6 and 8, therefore process in three 8-bit chunks
     for b0, b1, b2 in zip(*[iter(bytes)] * 3):
-        # Process the first 6 bits
+        # Process the first 6 [1-6] bits
         base64 += dec_to_base64((b0 >> 2) & 63)
+        # Process the next 6 [7-12] bits
         base64 += dec_to_base64(((b0 << 4) & 48) | ((b1 >> 4) & 15))
+        # Process the next 6 [13-18] bits
         base64 += dec_to_base64(((b1 << 2) & 60) | ((b2 >> 6) & 3))
+        # Process the final 6 [19-24] bits
         base64 += dec_to_base64(b2 & 63);
+    if len(bytes) % 3 == 1
+        padding = "=="
+    elif len(bytes) % 3 == 2
+        padding = "="
     return base64
 
 def hex_to_base64(hex):
