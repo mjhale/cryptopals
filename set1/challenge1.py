@@ -61,7 +61,7 @@ def bytes_to_base64(bytes):
 
     @TODO: Apply padding to base64 string
     """
-    base64 = ""
+    base64 = ''
     # 24 is LCM of 6 and 8, therefore process in three 8-bit chunks
     for b0, b1, b2 in zip(*[iter(bytes)] * 3):
         # First 6 bits of b0

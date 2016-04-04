@@ -18,7 +18,7 @@ If your function works properly, then when you feed it the string:
 
 __author__ = 'michael@michaelhale.org (Michael Hale)'
 
-from challenge1 import hex_to_array, hex_to_bytes
+from challenge1 import hex_to_bytes
 
 BYTE_TO_HEX_LUT = [
     '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '0a', '0b', '0c', '0d', '0e', '0f',
@@ -36,7 +36,8 @@ BYTE_TO_HEX_LUT = [
     'c0', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'ca', 'cb', 'cc', 'cd', 'ce', 'cf',
     'd0', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'd9', 'da', 'db', 'dc', 'dd', 'de', 'df',
     'e0', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'e7', 'e8', 'e9', 'ea', 'eb', 'ec', 'ed', 'ee', 'ef',
-    'f0', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'fa', 'fb', 'fc', 'fd', 'fe', 'ff']
+    'f0', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'fa', 'fb', 'fc', 'fd', 'fe', 'ff'
+    ]
 
 def bytes_to_hex(bytes):
     """Converts an array of bytes into a hex string"""
