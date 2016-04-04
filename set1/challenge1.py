@@ -62,21 +62,16 @@ def bytes_to_base64(bytes):
     @TODO: Apply padding to base64 string
     """
     base64 = ""
-    padding = ""
     # 24 is LCM of 6 and 8, therefore process in three 8-bit chunks
     for b0, b1, b2 in zip(*[iter(bytes)] * 3):
-        # Process the first 6 [1-6] bits
+        # First 6 bits of b0
         base64 += dec_to_base64((b0 >> 2) & 63)
-        # Process the next 6 [7-12] bits
+        # Last 2 bits of b0, first 4 bits of b1
         base64 += dec_to_base64(((b0 << 4) & 48) | ((b1 >> 4) & 15))
-        # Process the next 6 [13-18] bits
+        # Last 4 bits of b1, first 2 bits of b2
         base64 += dec_to_base64(((b1 << 2) & 60) | ((b2 >> 6) & 3))
-        # Process the final 6 [19-24] bits
+        # Last 6 bits of b2
         base64 += dec_to_base64(b2 & 63);
-    if len(bytes) % 3 == 1
-        padding = "=="
-    elif len(bytes) % 3 == 2
-        padding = "="
     return base64
 
 def hex_to_base64(hex):
