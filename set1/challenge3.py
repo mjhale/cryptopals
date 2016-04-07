@@ -15,10 +15,9 @@ Evaluate each output and choose the one with the best score.
 
 __author__ = 'michael@michaelhale.org (Michael Hale)'
 
-from challenge1 import HEX_LUT, hex_to_bytes
+from challenge1 import hex_to_bytes
 from challenge2 import bytes_to_hex, hex_xor
 from collections import defaultdict
-from pprint import pprint
 
 # Normalized frequency table which has a total probability of ~1
 LETTER_FREQUENCY = {
@@ -73,7 +72,7 @@ def decrypt_message(hex):
             # Chi-squared calculation
             score += ((c_count - c_expected)**2) / c_expected
         candidates[i].append([score, candidate_hex, candidate_plain])
-    message = min(candidates.items(), key=lambda a: a[1])
+    message = min(candidates.items(), key=lambda x: x[1])
     return message
 
 def main():

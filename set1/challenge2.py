@@ -16,7 +16,7 @@ If your function works properly, then when you feed it the string:
 
 __author__ = 'michael@michaelhale.org (Michael Hale)'
 
-from challenge1 import hex_to_bytes, HEX_LUT
+from challenge1 import HEX_LUT, hex_to_bytes
 
 def bytes_to_hex(bytes):
     """Converts an array of bytes into a hex string"""
