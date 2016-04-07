@@ -16,7 +16,7 @@ Evaluate each output and choose the one with the best score.
 __author__ = 'michael@michaelhale.org (Michael Hale)'
 
 from challenge1 import HEX_LUT, hex_to_bytes
-from challenge2 import hex_xor
+from challenge2 import bytes_to_hex, hex_xor
 from collections import defaultdict
 
 # Normalized to have a total probability of ~1
@@ -55,23 +55,18 @@ def hex_decode(hex):
         plain += chr(b)
     return plain
 
-def score(message):
-    score = 0
-    for c in message:
-        score += LETTER_FREQUENCY.get(c.upper())
-    return score
-
 def decrypt_message(hex):
-    message = 0
+    message = ""
     candidates = defaultdict(list)
-    for b in hex_to_bytes(hex):
+    for i in range(256):
+        candidate_hex = hex_xor(hex, bytes_to_hex(bytes([i] * len(hex))))
+        candidate_plain = hex_decode(candidate_hex)
+    return message
 
 def main():
     INPUT_HEX = ('1b37373331363f78151b7f2b783431333d'
                  '78397828372d363c78373e783a393b3736')
-    decrypt_message(INPUT_HEX)
-    print(hex_decode(INPUT_HEX))
-    #print(score('hello'))
+    print(decrypt_message(INPUT_HEX))
 
 if __name__ == '__main__':
     main()
