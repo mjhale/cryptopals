@@ -72,7 +72,8 @@ def decrypt_message(hex):
             # Chi-squared calculation
             score += ((c_count - c_expected)**2) / c_expected
         candidates[i].append([score, candidate_hex, candidate_plain])
-    message = min(candidates.items(), key=lambda x: x[1])
+    # Find candidate with lowest score. Retrieve candidate_plain ([1][0][2])
+    message = min(candidates.items(), key=lambda x: x[1])[1][0][2]
     return message
 
 def main():
