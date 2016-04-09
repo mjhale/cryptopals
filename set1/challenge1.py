@@ -73,14 +73,21 @@ def bytes_to_base64(bytes):
         # Last 6 bits of b2
         base64 += dec_to_base64(b2 & 63);
     if len(bytes) % 3 == 2:
-        b1, b2 = bytes[-2:]
+        # Take last two bytes
+        b0, b1 = bytes[-2:]
+        # First 6 bits of b0
         base64 += dec_to_base64((b0 >> 2) & 63)
+        # Last 2 bits of b0, first 4 bits of b1
         base64 += dec_to_base64(((b0 << 4) & 48) | ((b1 >> 4) & 15))
+        # Last 4 bits of b1
         base64 += dec_to_base64(((b1 << 2) & 60))
         base64 += '='
     if len(bytes) % 3 == 1:
+        # Take last byte
         b = bytes[-1]
+        # First 6 bits of b0
         base64 += dec_to_base64((b >> 2) & 63)
+        # Last 2 bits of b0
         base64 += dec_to_base64(((b << 4) & 48))
         base64 += '=='
     return base64
