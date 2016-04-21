@@ -27,16 +27,15 @@ def hamming_distance(first, second):
 
 def decrypt_vigenere(cipher, keysize_min, keysize_max):
     for key_length in range(keysize_min, keysize_max):
-        b0 = cipher[:key_length]
-        print(b0)
+        b0 = (cipher[:key_length], 2)
+        b1 = (cipher[key_length:key_length*2], 2)
+        print(hamming_distance(b0, b1))
     return None
 
 def main():
-    FIRST = 'this is a test'
-    SECOND = 'wokka wokka!!!'
     in_file = open('challenge6.txt', 'r')
-    base64 = in_file.read()
-    decrypt_vigenere(b64decode(base64), 2, 40)
+    file_content = b64decode(in_file.read())
+    decrypt_vigenere(file_content, 2, 40)
 
 if __name__ == '__main__':
     main()
